@@ -30,7 +30,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         println!("Iteration: {}", i);
         let start = Instant::now();
         let file = std::fs::File::open(cli.file.clone())?;
-        let mut reader = BufReader::new(file);
+        let mut reader = BufReader::with_capacity(1024 * 1024, file);
         single_thread::run(&mut reader);
 
         let end = start.elapsed();
